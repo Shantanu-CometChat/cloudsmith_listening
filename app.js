@@ -1,24 +1,18 @@
 const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const app = express();
 
 const token = 'ab';
 const user = 'Shantanu-CometChat';
 const repo = 'testingcommit';
 
-
 app.use(bodyParser.json());
 
 const secret = 'YOUR_CLOUDSMITH_SECRET';
 
-// This middleware validates the incoming webhook
-app.use((req, res, next) => {
-  next();
-});
-
-app.post('/webhook', async (req, res) => {
-
+app.post('/api/webhook', async (req, res) => {
 
     console.log('Started post webhook')
 
@@ -48,5 +42,4 @@ app.post('/webhook', async (req, res) => {
     }
   });
 
-
-app.listen(3000, () => console.log('Server started'));
+module.exports = app;
