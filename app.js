@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-const token = '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';
+const token = process.env.GIT_TOKEN || 'ab'
 const user = 'Shantanu-CometChat';
 const repo = 'testingcommit';
 
