@@ -40,7 +40,7 @@ app.post('/webhook', async (req, res) => {
             console.log('repository mismatch')
             return;
           }
-          commitToAndroidGitHubSampleApp(packageVersion)
+          commitToAndroidGitHubSampleApp(packageVersion,packageName)
         }catch (error) {
           console.error('Error during GitHub operations', error);
           res.status(500).send('An error occurred');
@@ -49,7 +49,7 @@ app.post('/webhook', async (req, res) => {
         break;
       case "testTrigger":
         console.log('Testing trigger');
-        makePostRequestTotriggerEvent(packageVersion)
+        makePostRequestTotriggerEvent(packageVersion,packageName, repository)
         break;
       default:
         console.log('Unknown fruit');
@@ -81,12 +81,14 @@ app.post('/webhook', async (req, res) => {
 }
 
 
-async function makePostRequestTotriggerEvent(param1) {
+async function makePostRequestTotriggerEvent(param1,param2, param3) {
   await axios.post('https://api.github.com/repos/Shantanu-CometChat/plugintesterbyshantanu/dispatches',
   {
       event_type: 'triggered-from-another-repo', // Replace this with your custom event type
       client_payload: {
-          version: param1
+          version: param1,
+          packageName: param2,
+          repository: param3
       }
   },
   {
