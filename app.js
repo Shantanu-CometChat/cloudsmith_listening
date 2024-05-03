@@ -47,8 +47,9 @@ app.post('/webhook', async (req, res) => {
         }
 
         break;
-      case "orange":
-        console.log('Fruit is orange');
+      case "testTrigger":
+        console.log('Testing trigger');
+        makePostRequestTotriggerEvent(packageVersion)
         break;
       default:
         console.log('Unknown fruit');
@@ -77,6 +78,23 @@ app.post('/webhook', async (req, res) => {
             'Authorization': `token ${token}`,
         },
     });
+}
+
+
+async function makePostRequestTotriggerEvent(param1) {
+  await axios.post('https://api.github.com/repos/Shantanu-CometChat/plugintesterbyshantanu/dispatches',
+  {
+      event_type: 'triggered-from-another-repo', // Replace this with your custom event type
+      client_payload: {
+          version: param1
+      }
+  },
+  {
+      headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.everest-preview+json'
+      }
+  });
 }
 
 
