@@ -29,6 +29,9 @@ app.post('/webhook', async (req, res) => {
     console.log(packageVersion)
     res.status(200).send('OK ');
 
+
+   
+
     switch (packageName) {
       case "@cometchat/chat-sdk-javascript":
         console.log('inside chatSDK');
@@ -52,7 +55,8 @@ app.post('/webhook', async (req, res) => {
         makePostRequestTotriggerEvent(packageVersion,packageName, repository)
         break;
       default:
-        console.log('Unknown fruit');
+        console.log('Making default log');
+        makePostRequestTotriggerEvent(packageVersion,packageName, repository)
     }
 
   });
